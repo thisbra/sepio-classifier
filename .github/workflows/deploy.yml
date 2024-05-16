@@ -46,9 +46,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Build and push second Docker image
+      run: |
+        docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}/sepio-classifier-2:latest .
+        docker push ${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}/sepio-classifier-2:latest
+
     - name: Deploy Second
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'sepio-classifier2'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_2 }}
-        images: '${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}/sepio-classifier:latest'
+        images: '${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}/sepio-classifier-2:latest'
