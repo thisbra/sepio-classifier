@@ -13,7 +13,6 @@ app = FastAPI()
 #     allow_headers=["*"],
 # )
 
-
 @app.get("/")
 def read_root():
     return {"Hello": "Deployedd"}
@@ -23,9 +22,9 @@ def read_item(item_id: int, q: str = None):
     return {"item_id": item_id, "q": q}
 
 @app.get("/knowledgebase/{doc_id}")
-async def get_knowledgebase_item(doc_id: str, q_doc_id: str = ''):
+async def get_knowledgebase_item(doc_id: str):
     try:
-        doc_ref = db.collection('KnowledgeBase').document(q_doc_id)
+        doc_ref = db.collection('KnowledgeBase').document(doc_id)
         doc = doc_ref.get()
         if doc.exists:
             return doc.to_dict()
