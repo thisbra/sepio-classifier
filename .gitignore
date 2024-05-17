@@ -127,6 +127,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+src/firebase/serviceAccountKey.*
 
 # Spyder project settings
 .spyderproject
