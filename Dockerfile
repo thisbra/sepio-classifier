@@ -19,10 +19,13 @@ COPY pyproject.toml poetry.lock /app/
 RUN poetry install --no-root --no-dev
 
 # Copy the rest of the application code to the working directory
-COPY . /app
+COPY src ./src
 
 # Expose port 8000 to the outside world
 EXPOSE 8000
+
+# Set the environment variables
+ENV FIREBASE_KEY=$FIREBASE_KEY
 
 # Run the application
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]

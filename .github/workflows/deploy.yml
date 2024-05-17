@@ -38,29 +38,3 @@ jobs:
         app-name: 'sepio-classifier'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         images: '${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}/sepio-classifier:latest'
-
-  # deploy-second-instance:
-  #   runs-on: ubuntu-latest
-  #   needs: build-and-deploy
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v2
-
-  #   - name: Log in to Azure Container Registry
-  #     uses: azure/docker-login@v1
-  #     with:
-  #       login-server: ${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}
-  #       username: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
-  #       password: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
-
-  #   - name: Build and push second Docker image
-  #     run: |
-  #       docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}/sepio-classifier-2:latest .
-  #       docker push ${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}/sepio-classifier-2:latest
-
-  #   - name: Deploy Second
-  #     uses: azure/webapps-deploy@v2
-  #     with:
-  #       app-name: 'sepio-classifier-2'
-  #       publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_2 }}
-  #       images: '${{ secrets.AZURE_CONTAINER_REGISTRY_LOGIN_SERVER }}/sepio-classifier-2:latest'
