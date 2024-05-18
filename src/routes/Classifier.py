@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException, Path, Body
 from ..models.KnowledgeBaseItem import KnowledgeBaseItem
-from ..models.MacAddress import MacAddress
 from ..service import Classifier as ClassifierService
 
 router = APIRouter()
@@ -8,7 +7,7 @@ router = APIRouter()
 # Define the endpoints
 @router.get("/classification/{mac_address}")
 def get_classification(mac_address: str = Path(..., min_length=12, max_length=12, regex=r"^[0-9A-F]{12}$")):
-    classification = ClassifierService.getVendorAndAssetTypeByMacAddress(MacAddress(mac_address=mac_address))    
+    classification = ClassifierService.getVendorAndAssetTypeByMacAddress(mac_address)    
     if not classification:
         raise HTTPException(status_code=404, detail="Classification not found")
     return classification
