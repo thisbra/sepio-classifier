@@ -24,3 +24,47 @@ def getVendorsByMacPrefix(mac_prefix: str):
     except Exception as e:
         print(f"An error occurred: {e}")
         raise
+
+def getMacRangesAndClassificationByVendor(vendor: str):
+    try:
+        vendors_ref = db.collection('KnowledgeBase') 
+        query = vendors_ref.where('Vendor', '==', vendor)
+        results = query.stream()
+
+        mac_ranges = []
+
+        for doc in results:
+            vendor_data = doc.to_dict()
+            mac_ranges.append({
+                "MacRange": vendor_data.get("MacRange"),
+                "Classification": vendor_data.get("Classification")
+            })
+
+        print(f"Mac ranges found: {mac_ranges}")
+        return mac_ranges
+    
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        raise
+
+def getMacRangesAndClassificationByMacPrefix(mac_prefix: str):
+    try:
+        vendors_ref = db.collection('KnowledgeBase') 
+        query = vendors_ref.where('MacPrefix', '==', mac_prefix)
+        results = query.stream()
+
+        mac_ranges = []
+
+        for doc in results:
+            vendor_data = doc.to_dict()
+            mac_ranges.append({
+                "MacRange": vendor_data.get("MacRange"),
+                "Classification": vendor_data.get("Classification")
+            })
+
+        print(f"Mac ranges found: {mac_ranges}")
+        return mac_ranges
+    
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        raise
