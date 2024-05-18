@@ -2,8 +2,8 @@ from pydantic import BaseModel
 from typing import Optional
 
 class KnowledgeBaseItem(BaseModel):
-    Classification: Optional[str] = None
-    Icon: Optional[int] = None
+    Classification: str = None
+    Icon: int = None
     MacPrefix: str
-    Vendor: Optional[str] = None
+    Vendor: str = None
     id: str
