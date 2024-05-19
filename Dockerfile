@@ -26,6 +26,9 @@ EXPOSE 8000
 
 # Set the environment variables
 ENV FIREBASE_KEY=$FIREBASE_KEY
+ENV REDIS_HOST=$REDIS_HOST
+ENV REDIS_PORT=$REDIS_PORT
+ENV REDIS_PASSWORD=$REDIS_PASSWORD
 
 # Run the application
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
