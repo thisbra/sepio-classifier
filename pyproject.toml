@@ -13,6 +13,7 @@ pydantic = "^2.7.1"
 firebase-admin = "^6.5.0"
 google-cloud-firestore = "^2.16.0"
 python-dotenv = "^1.0.1"
+redis = "^5.0.4"
 
 
 [build-system]
