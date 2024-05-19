@@ -15,7 +15,6 @@ def init_firestore():
         raise ValueError("The FIREBASE_KEY environment variable is not set.")
     
     firebase_key_json = base64.b64decode(firebase_key_base64).decode('utf-8')
-    print(firebase_key_json)
     cred = credentials.Certificate(json.loads(firebase_key_json))
     firebase_admin.initialize_app(cred)
     return firestore.client()
