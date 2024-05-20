@@ -58,6 +58,7 @@ def getMacRangesAndClassificationByMacPrefix(mac_prefix: str):
         for doc in results:
             vendor_data = doc.to_dict()
             mac_ranges.append({
+                "id": doc.id,
                 "MacRange": vendor_data.get("MacRange"),
                 "Classification": vendor_data.get("Classification")
             })
