@@ -1,11 +1,10 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .firebase.firebase import db
 from .routes import Classifier
 from .routes import Redis
+from .logging_config import logger
 
 app = FastAPI()
-
 # Set CORS settings if needed
 # app.add_middleware(
 #     CORSMiddleware,
@@ -17,6 +16,8 @@ app = FastAPI()
 
 app.include_router(Classifier.router)
 app.include_router(Redis.router)
+
+logger.info("Application started")
 
 @app.get("/")
 def read_root():
