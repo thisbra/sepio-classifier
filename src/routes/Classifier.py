@@ -1,9 +1,7 @@
 from fastapi import APIRouter, HTTPException, Path, Body
-from ..models.KnowledgeBaseItem import KnowledgeBaseItem
 from ..models.UpdateVendor import UpdateVendor
 from ..models.UpdateClassification import UpdateClassification
 from ..models.Override import Override
-from ..models.MacAddress import MacAddress
 from ..service import Classifier as ClassifierService
 
 router = APIRouter()

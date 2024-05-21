@@ -1,4 +1,5 @@
 from ..firebase.firebase import db
+from ..logging_config import logger
 
 def getVendorsByMacPrefix(mac_prefix: str) -> list | None:
     try:
@@ -18,12 +19,12 @@ def getVendorsByMacPrefix(mac_prefix: str) -> list | None:
                     "Vendor": vendor_data.get("Vendor")
                 })
 
-        print(f"Unique vendors found: {unique_vendors}")
+        logger.debug(f"Unique vendors found: {unique_vendors}")
         return unique_vendors
     
     except Exception as e:
-        print(f"An error occurred: {e}")
-        raise
+        logger.error(f"An error occurred while getting vendors by Mac prefix: {e}")
+        return None
 
 def getMacRangesAndClassificationByVendor(vendor: str) -> list | None:
     try:
@@ -40,12 +41,12 @@ def getMacRangesAndClassificationByVendor(vendor: str) -> list | None:
                 "Classification": vendor_data.get("Classification")
             })
 
-        print(f"Mac ranges found: {mac_ranges}")
+        logger.debug(f"Mac ranges found for vendor {vendor}: {mac_ranges}")
         return mac_ranges
     
     except Exception as e:
-        print(f"An error occurred: {e}")
-        raise
+        logger.error(f"An error occurred while getting Mac ranges and classification by vendor: {e}")
+        return None
 
 def getMacRangesAndClassificationByMacPrefix(mac_prefix: str) -> list | None:
     try:
@@ -63,9 +64,9 @@ def getMacRangesAndClassificationByMacPrefix(mac_prefix: str) -> list | None:
                 "Classification": vendor_data.get("Classification")
             })
 
-        print(f"Mac ranges found: {mac_ranges}")
+        logger.debug(f"Mac ranges found for Mac prefix {mac_prefix}: {mac_ranges}")
         return mac_ranges
     
     except Exception as e:
-        print(f"An error occurred: {e}")
-        raise
+        logger.error(f"An error occurred while getting Mac ranges and classification by Mac prefix: {e}")
+        return None
