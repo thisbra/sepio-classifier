@@ -3,6 +3,8 @@ from ..models.MacAddress import MacAddress
 from ..repository import KnowledgeBaseItem as KnowledgeBaseItemRepository
 from ..repository import Override as OverrideRepository
 from ..utils.functions.AddressIsInRange import AddressIsInRange
+from ..models.RedisEvent import RedisEvent
+from ..redis.EventRegister import EventRegister
 
 def getVendorAndAssetTypeByMacAddress(mac_address: MacAddress.model_fields["MacAddress"]):
     vendors = KnowledgeBaseItemRepository.getVendorsByMacPrefix(mac_address[:6])
@@ -42,9 +44,15 @@ def getVendorAndAssetTypeByMacAddress(mac_address: MacAddress.model_fields["MacA
     return response
 
 def addOverrideToRepository(override: Override) -> Override | None:
-    if OverrideRepository.getOverrideByMacAddress(override.MacAddress):
-        return OverrideRepository.updateOverride(override)
-    return OverrideRepository.addOverride(override)
+    alreadyHasEntry = OverrideRepository.getOverrideByMacAddress(override.MacAddress)
+    if alreadyHasEntry:
+        override = OverrideRepository.updateOverride(override)
+    else: override = OverrideRepository.addOverride(override)
+    event = RedisEvent(level="info", type="INSERT_OVERRIDE", data=override.model_dump())
+    event_register = EventRegister(stream_name="sepio-events")
+    event_register.register_event(event)
+    return override
+
 
 def getVendorOrClassificationFromOverrides(mac_address: MacAddress.model_fields["MacAddress"]) -> Override | None:
     return OverrideRepository.getOverrideByMacAddress(mac_address)
