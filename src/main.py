@@ -5,6 +5,7 @@ from .routes import Redis
 from .logging_config import logger
 
 app = FastAPI()
+
 # Set CORS settings if needed
 # app.add_middleware(
 #     CORSMiddleware,
@@ -14,11 +15,12 @@ app = FastAPI()
 #     allow_headers=["*"],
 # )
 
-app.include_router(Classifier.router)
-app.include_router(Redis.router)
+@app.get("/", tags=["Status"])
+def read_root():
+    return {"status": "on"}
+
+app.include_router(Classifier.router, tags=["Classifier"])
+app.include_router(Redis.router, tags=["Redis"])
 
 logger.info("Application started")
 
-@app.get("/")
-def read_root():
-    return {"status": "on"}
