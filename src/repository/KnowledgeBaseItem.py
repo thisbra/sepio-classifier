@@ -1,6 +1,6 @@
 from ..firebase.firebase import db
 
-def getVendorsByMacPrefix(mac_prefix: str):
+def getVendorsByMacPrefix(mac_prefix: str) -> list | None:
     try:
         vendors_ref = db.collection('KnowledgeBase') 
         query = vendors_ref.where('MacPrefix', '==', mac_prefix)
@@ -25,7 +25,7 @@ def getVendorsByMacPrefix(mac_prefix: str):
         print(f"An error occurred: {e}")
         raise
 
-def getMacRangesAndClassificationByVendor(vendor: str):
+def getMacRangesAndClassificationByVendor(vendor: str) -> list | None:
     try:
         vendors_ref = db.collection('KnowledgeBase') 
         query = vendors_ref.where('Vendor', '==', vendor)
@@ -47,7 +47,7 @@ def getMacRangesAndClassificationByVendor(vendor: str):
         print(f"An error occurred: {e}")
         raise
 
-def getMacRangesAndClassificationByMacPrefix(mac_prefix: str):
+def getMacRangesAndClassificationByMacPrefix(mac_prefix: str) -> list | None:
     try:
         vendors_ref = db.collection('KnowledgeBase') 
         query = vendors_ref.where('MacPrefix', '==', mac_prefix)

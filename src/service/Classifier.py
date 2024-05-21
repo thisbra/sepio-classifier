@@ -1,9 +1,7 @@
-from ..models.KnowledgeBaseItem import KnowledgeBaseItem
 from ..models.Override import Override
 from ..models.MacAddress import MacAddress
 from ..repository import KnowledgeBaseItem as KnowledgeBaseItemRepository
 from ..repository import Override as OverrideRepository
-from ..utils.functions.HexidecimalToDecimal import HexadecimalToDecimal
 from ..utils.functions.AddressIsInRange import AddressIsInRange
 
 def getVendorAndAssetTypeByMacAddress(mac_address: MacAddress.model_fields["MacAddress"]):
@@ -37,6 +35,9 @@ def getVendorAndAssetTypeByMacAddress(mac_address: MacAddress.model_fields["MacA
             response["Vendor"] = override.Vendor
         if override.Classification:
             response["Classification"] = override.Classification
+
+    if not response["Classification"]:
+        response["Classification"] = "Not Found"
 
     return response
 

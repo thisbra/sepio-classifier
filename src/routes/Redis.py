@@ -5,7 +5,7 @@ from ..redis.redis import redis_client
 router = APIRouter()
 
 @router.get("/events")
-def get_events():
+async def get_events():
     try:
         # Retrieve all entries from the sepio-events stream
         events = redis_client.xrange('sepio-events', '-', '+')

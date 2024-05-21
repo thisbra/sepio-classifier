@@ -2,7 +2,7 @@ from ..firebase.firebase import db
 from ..models.Override import Override
 from ..models.MacAddress import MacAddress
 
-def addOverride(override: Override) -> Override:
+def addOverride(override: Override) -> Override | None:
     try:
         override_ref = db.collection('Overrides')
         override_ref.add(override.model_dump())
@@ -24,7 +24,7 @@ def getOverrideByMacAddress(mac_address: MacAddress.model_fields["MacAddress"]) 
         print(f"An error occurred: {e}")
         raise
 
-def updateOverride(override: Override) -> Override:
+def updateOverride(override: Override) -> Override | None:
     try:
         overrides_ref = db.collection('Overrides')
         query = overrides_ref.where('MacAddress', '==', override.MacAddress)
